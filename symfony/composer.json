@@ -1,4 +1,6 @@
 {
+    "name": "ryanwhowe/templogger",
+    "description": "Microservice temperature api logger",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -80,7 +82,5 @@
             "require": "5.3.*",
             "docker": false
         }
-    },
-    "name": "ryanwhowe/tempLogger",
-    "description": "Microservice temperature api logger"
+    }
 }
