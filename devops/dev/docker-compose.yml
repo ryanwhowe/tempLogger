@@ -1,0 +1,31 @@
+version: "3.7"
+
+x-config: &common-config
+  DATABASE_URL: mysql://root:root@db:3306/Temp_Logger?serverVersion=5.7
+  DATABASE_HOST: db # needed for the wait-for-it.sh script
+  DATABASE_PORT: 3306 # needed for the wait-for-it.sh script
+  HOST_LOADER_TIMEOUT: 600000 # time in milliseconds
+
+services:
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3300:3306
+    volumes:
+      - dev-db-temperature:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: Edict
+
+  cli:
+    image: ryanwhowe/myphp:7.4
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      <<: *common-config
+
+volumes:
+  dev-db-temperature:
